@@ -42,6 +42,9 @@ export const loginUser = async (req: NextApiRequest, res: NextApiResponse) => {
         where: { idx: user.idx },
         data: { token: token },
     })
-
+    res.setHeader(
+        "Set-Cookie",
+        `token=${token}; HttpOnly; Path=/; Max-Age=${10 * 60 * 60}`
+    )
     res.status(200).json({ status: "success" })
 }
